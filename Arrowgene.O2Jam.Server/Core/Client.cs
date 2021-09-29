@@ -39,6 +39,28 @@ namespace Arrowgene.O2Jam.Server.Core
             return packets;
         }
 
+        public void Send(byte[] data, PacketId packetId)
+        {
+            NetPacket packet = new NetPacket(packetId, data, PacketSource.Server);
+            Send(packet);
+        }
+
+        public void Send(PacketId packetId)
+        {
+            Send(null, packetId);
+        }
+
+        public void Send(byte[] data)
+        {
+            if (data == null)
+            {
+                Logger.Error(this, "data == null");
+                return;
+            }
+
+            _socket.Send(data);
+        }
+
         public void Send(NetPacket packet)
         {
             byte[] data;
@@ -59,6 +81,11 @@ namespace Arrowgene.O2Jam.Server.Core
             }
 
             _socket.Send(data);
+        }
+
+        public void Close()
+        {
+            _socket.Close();
         }
     }
 }

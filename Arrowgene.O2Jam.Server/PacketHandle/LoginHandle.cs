@@ -12,11 +12,11 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
     {
         private static readonly ServerLogger Logger = LogProvider.Logger<ServerLogger>(typeof(LoginHandle));
 
-        public override PacketId Id => PacketId.Login;
+        public override PacketId Id => PacketId.LoginReq;
 
         public override void Handle(Client client, NetPacket packet)
         {
-            IBuffer buffer = packet.CreateBuffer();
+            IBuffer buffer = packet.CreateReadBuffer();
             buffer.Position = 15;
             ushort a = buffer.ReadUInt16();
             if (a > 2)
@@ -31,6 +31,25 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             string e = buffer.ReadCString();
 
             Logger.Info($"b:{b} c:{c} d:{d} e:{e}");
+
+            IBuffer res = new StreamBuffer();
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            DateTime now = DateTime.Now;
+            string nowStr = now.ToString("yyyy-dd-MM hh:mm:ss");
+            res.WriteCString(nowStr);
+            res.WriteInt32(0);
+            ushort value = 0;
+            res.WriteUInt16(value);
+            if (value != 0)
+            {
+                res.WriteCString("Test");
+            }
+
+            res.WriteInt32(0);
+            res.WriteCString("Test2");
+
+            client.Send(res.GetAllBytes(), PacketId.LoginRes);
         }
     }
 }

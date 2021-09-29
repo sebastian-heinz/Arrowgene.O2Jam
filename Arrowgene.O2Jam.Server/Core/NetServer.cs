@@ -11,29 +11,39 @@ namespace Arrowgene.O2Jam.Server.Core
 
         private readonly AsyncEventServer _server;
         private readonly ServerConsumer _consumer;
-        private readonly Setting _setting;
 
         public NetServer(Setting setting)
         {
-            _setting = new Setting(setting);
-            _consumer = new ServerConsumer(_setting.ServerSetting);
-            
+            Setting = new Setting(setting);
+            _consumer = new ServerConsumer(Setting.ServerSetting);
+
             _consumer.AddHandler(new UnknownHandle());
             _consumer.AddHandler(new LoginHandle());
-            
+            _consumer.AddHandler(new PlanetHandle());
+            _consumer.AddHandler(new ChannelHandle());
+            _consumer.AddHandler(new MusicListHandle(this));
+            _consumer.AddHandler(new CharacterHandle());
+            _consumer.AddHandler(new RoomListHandle());
+            _consumer.AddHandler(new CashHandle());
+            _consumer.AddHandler(new Room1Handle());
+            _consumer.AddHandler(new PingHandle());
+            _consumer.AddHandler(new DisconnectHandle());
+
             _server = new AsyncEventServer(
                 IPAddress.Any,
                 15010,
                 _consumer,
-                _setting.ServerSetting
+                Setting.ServerSetting
             );
         }
+
+        public Setting Setting { get; }
 
         public void Start()
         {
             _server.Start();
         }
-        
+
         public void Stop()
         {
             _server.Stop();

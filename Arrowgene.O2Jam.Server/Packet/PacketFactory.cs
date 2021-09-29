@@ -32,6 +32,7 @@ namespace Arrowgene.O2Jam.Server.Packet
 
         public byte[] Write(NetPacket packet)
         {
+            Logger.Packet(_client, packet);
             int packetSize = packet.Data.Length + PacketLengthSize + PacketIdSize;
             if (packetSize > ushort.MaxValue)
             {
@@ -47,17 +48,17 @@ namespace Arrowgene.O2Jam.Server.Packet
 
             ushort size = (ushort) packetSize;
             IBuffer buffer = new StreamBuffer();
-            buffer.WriteUInt16(size);
+            buffer.WriteInt16((short) size);
             buffer.WriteUInt16((ushort) packet.Id);
             buffer.WriteBytes(packet.Data);
             byte[] packetData = buffer.GetAllBytes();
+            //Logger.Debug(_client, Util.HexDump(packetData));
             return packetData;
         }
 
         public List<NetPacket> Read(byte[] data)
         {
-            Logger.Debug(_client, Util.HexDump(data));
-
+            // Logger.Debug(_client, Util.HexDump(data));
             List<NetPacket> packets = new List<NetPacket>();
             if (_buffer == null)
             {
@@ -75,7 +76,7 @@ namespace Arrowgene.O2Jam.Server.Packet
             while (read)
             {
                 read = false;
-                if (!_readPacketLength && _buffer.Size - _buffer.Position > PacketHeaderSize)
+                if (!_readPacketLength && _buffer.Size - _buffer.Position >= PacketHeaderSize)
                 {
                     ushort dataSize = _buffer.ReadUInt16();
                     ushort packetId = _buffer.ReadUInt16();

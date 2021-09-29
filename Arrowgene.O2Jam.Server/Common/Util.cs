@@ -1,11 +1,17 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using Arrowgene.Buffers;
+using Arrowgene.Logging;
+using Arrowgene.O2Jam.Server.Core;
 
 namespace Arrowgene.O2Jam.Server.Common
 {
     public static class Util
     {
+        private static readonly ILogger Logger = LogProvider.Logger<Logger>(typeof(Util));
+        
         public static readonly Encoding KoreanEncoding;
         
         static Util()
@@ -14,6 +20,38 @@ namespace Arrowgene.O2Jam.Server.Common
             KoreanEncoding = Encoding.GetEncoding("EUC-KR");
         }
 
+        /// <summary>
+        /// The directory of the executing assembly.
+        /// This might not be the location where the .dll files are located.
+        /// </summary>
+        /// <returns></returns>
+        public static string ExecutingDirectory()
+        {
+            Assembly assembly = Assembly.GetEntryAssembly();
+            if (assembly == null)
+            {
+                Logger.Error("Assembly.GetEntryAssembly() == null");
+                return null;
+            }
+            string path = assembly.CodeBase;
+            Uri uri = new Uri(path);
+            string directory = Path.GetDirectoryName(uri.LocalPath);
+            return directory;
+        }
+        
+        /// <summary>
+        /// Directory of a c# dll
+        /// </summary>
+        /// <param name="typeContainedInLibrary">a type contained in the library to identify it</param>
+        /// <returns></returns>
+        public static string LibraryDirectory(Type typeContainedInLibrary)
+        {
+            string location = typeContainedInLibrary.GetTypeInfo().Assembly.Location;
+            Uri uri = new Uri(location);
+            string directory = Path.GetDirectoryName(uri.LocalPath);
+            return directory;
+        }
+        
         public static byte[] FromHexString(string hexString)
         {
             if ((hexString.Length & 1) != 0)

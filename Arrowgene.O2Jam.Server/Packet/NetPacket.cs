@@ -14,6 +14,11 @@ namespace Arrowgene.O2Jam.Server.Packet
 
         public NetPacket(PacketId id, byte[] data, PacketSource source = PacketSource.Server)
         {
+            if (data == null)
+            {
+                data = new byte[0];
+            }
+
             Id = id;
             Data = data;
             Source = source;
@@ -22,6 +27,11 @@ namespace Arrowgene.O2Jam.Server.Packet
 
         public NetPacket(ushort id, byte[] data, PacketSource source = PacketSource.Server)
         {
+            if (data == null)
+            {
+                data = new byte[0];
+            }
+
             IdValue = id;
             Data = data;
             Source = source;
@@ -35,7 +45,7 @@ namespace Arrowgene.O2Jam.Server.Packet
             }
         }
 
-        public IBuffer CreateBuffer()
+        public IBuffer CreateReadBuffer()
         {
             IBuffer buffer = new StreamBuffer(Data);
             buffer.SetPositionStart();
