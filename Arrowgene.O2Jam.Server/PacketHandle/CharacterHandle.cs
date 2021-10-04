@@ -15,114 +15,88 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
         public override void Handle(Client client, NetPacket packet)
         {
             IBuffer res = new StreamBuffer();
-            //  res.WriteInt32(0);
-            //  res.WriteCString("Character");
-            //  res.WriteByte(1); // Gender
-
-            //  res.WriteBytes(new byte[]
-            //  {
-            //      0x7f, 0x96, 0x98, 0x00,
-            //      0xFF, 0xFF, 0xFF, 0x00,
-            //      0x7F, 0x96, 0x98, 0x00,
-            //      0x64, 0x00, 0x00, 0x00,
-            //      0x10, 0x00, 0x00, 0x00,
-            //      0x0B, 0x00, 0x00, 0x00,
-            //      0x05, 0x00, 0x00, 0x00,
-            //      0x3A, 0x17, 0x59, 0x00,
-            //      0x00, 0x00, 0x00, 0x00,
-            //      0x00,
-            //  });
-
-            //  res.WriteInt32(0); // 
-            //  res.WriteInt32(0); // 1
-            //  res.WriteInt32(0); // 2
-            //  res.WriteInt32(0); // 3
-            //  res.WriteInt32(0); // 4
-            //  res.WriteInt32(0); // 5
-            //  res.WriteInt32(0); // 6
-            //  res.WriteInt32(0); // 7
-            //  res.WriteInt32(0); // 8
-            //  res.WriteInt32(0); // 9
-            //  res.WriteInt32(0); // 10
-            //  res.WriteInt32(0x23); // 11 Face
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-            //  res.WriteInt32(0);
-
-            //  // Begin lazy data, first empty data that I lazy to make parser or it!
-            //  // Probably inventory slot that not important in this KREmu.
-            //  res.WriteBytes(new byte[]
-            //  {
-            //      0x00, 0x00, 0x00,
-            //  });
-
-            //  res.WriteBytes(new byte[13 * 10]);
-            //  res.WriteBytes(new byte[]
-            //  {
-            //      // Just bunch Inventory slot!
-            //      0x00, 0x26, 0x03, 0x00, 0x00, 0x24, 0x03, 0x00,
-            //      0x00, 0x22, 0x03, 0x00, 0x00, 0x20, 0x03, 0x00,
-            //      0x00, 0x1E, 0x03, 0x00, 0x00, 0x1C, 0x03, 0x00,
-            //      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            //      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            //      0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00,
-            //      0x00, 0x1C, 0x03, 0x00, 0x00, 0x99, 0x99, 0x00,
-            //      0x00, 0x1E, 0x03, 0x00, 0x00, 0x99, 0x99, 0x00,
-            //      0x00, 0x20, 0x03, 0x00, 0x00, 0x99, 0x99, 0x00,
-            //      0x00, 0x22, 0x03, 0x00, 0x00, 0x99, 0x99, 0x00,
-            //      0x00, 0x24, 0x03, 0x00, 0x00, 0x99, 0x99, 0x00,
-            //      0x00, 0x26, 0x03, 0x00, 0x00, 0x99, 0x99, 0x00
-            //  });
-
-            //  res.WriteByte(0);
-
-
-            res.WriteInt32(0);
+            // RVA: otwo:base+0x15A396
+            res.WriteInt32(0); // if not 0 skip 
             res.WriteCString("Character");
-            res.WriteByte(0); // Gender
+            res.WriteByte(1); // Gender
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+
+            res.WriteInt32(0); // otwo.540C50
 
             res.WriteInt32(0);
             res.WriteInt32(0);
             res.WriteInt32(0);
             res.WriteInt32(0);
             res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-
-
             res.WriteByte(0);
 
+            int val2 = 0x23;
+            res.WriteInt32(0);
+            // loop start
             res.WriteInt32(0);
             res.WriteInt32(0);
             res.WriteInt32(0);
             res.WriteInt32(0);
             res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(val2);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            res.WriteInt32(0);
+            // end
 
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
+            if (val2 == 0x23)
+            {
+                int count = 3;
+                res.WriteInt32(count);
+                for (int i = 0; i < count; i++)
+                {
+                    res.WriteInt32(0);
+                }
 
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
+                res.WriteInt32(0);
 
-            res.WriteInt32(0);
-            res.WriteInt32(1);
+                byte count2 = 3;
+                res.WriteUInt16(count2); // only byte used / max 255
+                for (int i = 0; i < count2; i++)
+                {
+                    res.WriteInt32(0);
+                    res.WriteInt32(0);
+                    res.WriteCString("Test" + i);
+                }
+
+                byte count3 = 3;
+                res.WriteUInt16(count3); // only byte used / max 255
+                for (int i = 0; i < count3; i++)
+                {
+                    res.WriteInt32(0);
+                    res.WriteInt32(0);
+                    res.WriteCString("Test" + i);
+                }
+
+                res.WriteInt32(0);
+                res.WriteInt32(0);
+                res.WriteInt32(0);
+
+                int count1 = 3;
+                res.WriteInt32(count1);
+                for (int i = 0; i < count1; i++)
+                {
+                    res.WriteInt32(0);
+                    res.WriteInt32(0);
+                }
+
+                res.WriteInt16(0);
+                res.WriteInt16(0);
+            }
 
             client.Send(res.GetAllBytes(), PacketId.CharacterRes);
         }
