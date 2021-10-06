@@ -6,17 +6,18 @@ using Arrowgene.O2Jam.Server.Packet;
 
 namespace Arrowgene.O2Jam.Server.PacketHandle
 {
-    public class Room1Handle : PacketHandler
+    public class RoomUnknown1Handle : PacketHandler
     {
-        private static readonly ServerLogger Logger = LogProvider.Logger<ServerLogger>(typeof(Room1Handle));
+        private static readonly ServerLogger Logger = LogProvider.Logger<ServerLogger>(typeof(RoomUnknown1Handle));
 
-        public override PacketId Id => PacketId.Room1Req;
+        public override PacketId Id => PacketId.RoomUnknown1Req;
 
         public override void Handle(Client client, NetPacket packet)
         {
+            // potentially player in room
             IBuffer res = new StreamBuffer();
             res.WriteInt32(0);
-            client.Send(res.GetAllBytes(), PacketId.Room1Res);
+            client.Send(res.GetAllBytes(), PacketId.RoomUnknown1Res);
         }
     }
 }

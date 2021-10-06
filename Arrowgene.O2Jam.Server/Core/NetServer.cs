@@ -24,6 +24,14 @@ namespace Arrowgene.O2Jam.Server.Core
             _consumer.AddHandler(new MusicListHandle(this));
             _consumer.AddHandler(new CharacterHandle());
             _consumer.AddHandler(new RoomListHandle());
+            _consumer.AddHandler(new CreateRoomHandle());
+            _consumer.AddHandler(new RoomSongSelectHandle());
+            _consumer.AddHandler(new RoomColorSelectHandle());
+            _consumer.AddHandler(new RoomUnknown1Handle());
+            _consumer.AddHandler(new RoomUnknown2Handle());
+            _consumer.AddHandler(new StartGameHandle());
+            _consumer.AddHandler(new GameCheck1Handle());
+            _consumer.AddHandler(new GameCheck2Handle());
             _consumer.AddHandler(new CashHandle());
             _consumer.AddHandler(new Room1Handle());
             _consumer.AddHandler(new PingHandle());

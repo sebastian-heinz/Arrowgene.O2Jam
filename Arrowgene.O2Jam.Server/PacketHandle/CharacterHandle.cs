@@ -18,17 +18,17 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             // RVA: otwo:base+0x15A396
             res.WriteInt32(0); // if not 0 skip 
             res.WriteCString("Character");
-            res.WriteByte(1); // Gender
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
+            res.WriteByte(1); // gender
+            res.WriteInt32(0x98967F);
+            res.WriteInt32(0xFFFFFF);
+            res.WriteInt32(0x98967F); 
+            // otwo.540C50
+            res.WriteInt32(100); // level
 
-            res.WriteInt32(0); // otwo.540C50
-
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
-            res.WriteInt32(0);
+            res.WriteInt32(0x10);
+            res.WriteInt32(0xB);
+            res.WriteInt32(0x5);
+            res.WriteInt32(0x59173A);
             res.WriteInt32(0);
             res.WriteByte(0);
 
