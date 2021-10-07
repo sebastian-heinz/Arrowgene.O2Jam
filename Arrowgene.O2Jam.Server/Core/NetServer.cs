@@ -36,6 +36,9 @@ namespace Arrowgene.O2Jam.Server.Core
             _consumer.AddHandler(new Room1Handle());
             _consumer.AddHandler(new PingHandle());
             _consumer.AddHandler(new DisconnectHandle());
+            _consumer.AddHandler(new WaitRoomBackHandle());
+            _consumer.AddHandler(new RoomBackHandle());
+            _consumer.AddHandler(new InGameBackHandle());
 
             _server = new AsyncEventServer(
                 IPAddress.Any,

@@ -20,7 +20,14 @@
         CreateRoomRes = 2006,      // 0x07D6
         Room1Req = 2010,           // 0x07DA
         Room1Res = 2011,           // 0x07DB
+
+        WaitRoomBackReq = 2021,
+        WaitRoomBackRes = 2022,
+
         UnkRes = 2026,             // 0x07EA
+
+        RoomBackReq = 3005,
+        RoomBackRes = 3006,
 
         RoomSongSelectReq = 4000,  // 0x0FA0
         RoomSongSelectRes = 4001,  // 0x0FA1
@@ -28,6 +35,10 @@
         RoomColorSelectRes = 4005, // 0x0FA5
         StartGameReq = 4010,       // 0x0FAA
         StartGameRes = 4011,       // 0x0FAB
+
+        InGameBackReq = 4021,
+        InGameBackRes = 4022,
+
         RoomUnknown1Req = 4023,    // 0x0FB7
         RoomUnknown1Res = 4024,    // 0x0FB8
         RoomUnknown2Req = 4025,    // 0x0FB9
