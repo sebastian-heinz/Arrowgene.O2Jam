@@ -16,6 +16,11 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
         {
             IBuffer res = new StreamBuffer();
             res.WriteByte(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
             client.Send(res.GetAllBytes(), PacketId.RoomBackButtonRes);
         }
     }
