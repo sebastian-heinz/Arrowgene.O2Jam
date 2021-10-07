@@ -25,10 +25,10 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             Logger.Info($"un0:{un0} un1:{un1} time:{time} count:{count} un2:{un2}");
             
             IBuffer res = new StreamBuffer();
-            res.WriteUInt32(un0);
+            res.WriteUInt32(un0); //Loading Orange = 1 , Green = 0
             res.WriteUInt32(un1);
-            res.WriteUInt32(time);
-            res.WriteUInt32(count);
+            res.WriteUInt32(time);//time
+            res.WriteUInt32(count);//count
             res.WriteUInt32(un2);
 
 
@@ -36,7 +36,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
 
             //InGame Start
             IBuffer res2 = new StreamBuffer();
-            res2.WriteByte(1);
+            res2.WriteByte(0);
             client.Send(res2.GetAllBytes(), PacketId.InGameStartRes);
 
 
