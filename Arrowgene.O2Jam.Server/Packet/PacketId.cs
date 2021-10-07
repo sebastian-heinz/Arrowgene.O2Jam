@@ -21,13 +21,16 @@
         Room1Req = 2010,           // 0x07DA
         Room1Res = 2011,           // 0x07DB
 
-        WaitRoomBackReq = 2021,
-        WaitRoomBackRes = 2022,
+        WaitRoomBackButtonReq = 2021,
+        WaitRoomBackButtonRes = 2022,
+
+        RoomSongSelectButton1Req = 2030,
+        RoomSongSelectButton1Res = 2031,
 
         UnkRes = 2026,             // 0x07EA
 
-        RoomBackReq = 3005,
-        RoomBackRes = 3006,
+        RoomBackButtonReq = 3005,
+        RoomBackButtonRes = 3006,
 
         RoomSongSelectReq = 4000,  // 0x0FA0
         RoomSongSelectRes = 4001,  // 0x0FA1
@@ -36,8 +39,8 @@
         StartGameReq = 4010,       // 0x0FAA
         StartGameRes = 4011,       // 0x0FAB
 
-        InGameBackReq = 4021,
-        InGameBackRes = 4022,
+        InGameBackButtonReq = 4021,
+        InGameBackButtonRes = 4022,
 
         RoomUnknown1Req = 4023,    // 0x0FB7
         RoomUnknown1Res = 4024,    // 0x0FB8
@@ -49,6 +52,11 @@
         GameCheck2Res = 4049,      // 0x0FD1
 
         InGameStartRes = 4050,     // 0x0FD2
+
+        RoomSongSelectButton2Req = 4051,
+        RoomSongSelectButton2Res = 4052,
+        RoomSongSelectCheckButtonReq = 4053,
+        RoomSongSelectCheckButtonRes = 4054,
 
         GameCheck1Req = 4055,      // 0x0FD7
         GameCheck1Res = 4056,      // 0x0FD8

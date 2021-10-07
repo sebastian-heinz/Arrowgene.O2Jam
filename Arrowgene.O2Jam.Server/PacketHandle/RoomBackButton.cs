@@ -6,17 +6,17 @@ using Arrowgene.O2Jam.Server.Packet;
 
 namespace Arrowgene.O2Jam.Server.PacketHandle
 {
-    public class WaitRoomBackHandle : PacketHandler
+    public class RoomBackButton : PacketHandler
     {
-        private static readonly ServerLogger Logger = LogProvider.Logger<ServerLogger>(typeof(WaitRoomBackHandle));
+        private static readonly ServerLogger Logger = LogProvider.Logger<ServerLogger>(typeof(RoomBackButton));
 
-        public override PacketId Id => PacketId.WaitRoomBackReq;
+        public override PacketId Id => PacketId.RoomBackButtonReq;
 
         public override void Handle(Client client, NetPacket packet)
         {
             IBuffer res = new StreamBuffer();
             res.WriteByte(0);
-            client.Send(res.GetAllBytes(), PacketId.WaitRoomBackRes);
+            client.Send(res.GetAllBytes(), PacketId.RoomBackButtonRes);
         }
     }
 }

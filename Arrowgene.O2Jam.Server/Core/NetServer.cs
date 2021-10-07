@@ -36,9 +36,13 @@ namespace Arrowgene.O2Jam.Server.Core
             _consumer.AddHandler(new Room1Handle());
             _consumer.AddHandler(new PingHandle());
             _consumer.AddHandler(new DisconnectHandle());
-            _consumer.AddHandler(new WaitRoomBackHandle());
-            _consumer.AddHandler(new RoomBackHandle());
-            _consumer.AddHandler(new InGameBackHandle());
+
+            _consumer.AddHandler(new WaitRoomBackButton());
+            _consumer.AddHandler(new RoomBackButton());
+            _consumer.AddHandler(new InGameBackButton());
+            _consumer.AddHandler(new RoomSongSelectButton1());
+            _consumer.AddHandler(new RoomSongSelectButton2());
+            _consumer.AddHandler(new RoomSongSelectCheckButton());
 
             _server = new AsyncEventServer(
                 IPAddress.Any,
