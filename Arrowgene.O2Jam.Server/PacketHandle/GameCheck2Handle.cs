@@ -34,6 +34,11 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
 
             client.Send(res.GetAllBytes(), PacketId.GameCheck2Res);
 
+            //InGame Start
+            IBuffer res2 = new StreamBuffer();
+            res2.WriteByte(1);
+            client.Send(res2.GetAllBytes(), PacketId.InGameStartRes);
+
 
           // if (un2 == 1)
           // {

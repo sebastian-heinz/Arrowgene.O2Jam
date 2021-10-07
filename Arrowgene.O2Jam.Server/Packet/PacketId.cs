@@ -36,6 +36,9 @@
         MusicListRes = 4031,       // 0x0FBF
         GameCheck2Req = 4048,      // 0x0FD0
         GameCheck2Res = 4049,      // 0x0FD1
+
+        InGameStartRes = 4050,     // 0x0FD2
+
         GameCheck1Req = 4055,      // 0x0FD7
         GameCheck1Res = 4056,      // 0x0FD8
         
