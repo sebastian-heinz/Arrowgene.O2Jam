@@ -23,6 +23,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteUInt16(unknown1);
             res.WriteUInt16(unknown2);
             client.Send(res.GetAllBytes(), PacketId.RoomColorSelectRes);
+            //Res_4005_0x0FA5 = 4005, // 0x0FA5 = 0x0055F3F0
         }
     }
 }

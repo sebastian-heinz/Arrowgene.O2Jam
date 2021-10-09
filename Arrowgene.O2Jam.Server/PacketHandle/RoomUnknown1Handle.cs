@@ -18,6 +18,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             IBuffer res = new StreamBuffer();
             res.WriteInt32(0);
             client.Send(res.GetAllBytes(), PacketId.RoomUnknown1Res);
+            //Res_4024_0x0FB8 = 4024, // 0x0FB8 = 0x005602A0
         }
     }
 }

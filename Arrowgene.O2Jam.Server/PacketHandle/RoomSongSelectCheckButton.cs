@@ -17,6 +17,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             IBuffer res = new StreamBuffer();
             res.WriteByte(0);
             client.Send(res.GetAllBytes(), PacketId.RoomSongSelectCheckButtonRes);
+            //Res_4054_0x0FD6 = 4054, // 0x0FD6 = 0x00563D30
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteUInt16(0);
             res.WriteByte(0);
             client.Send(res.GetAllBytes(), PacketId.RoomUnknown2Res);
+            //Res_4026_0x0FBA = 4026, // 0x0FBA = 0x00560960
         }
     }
 }

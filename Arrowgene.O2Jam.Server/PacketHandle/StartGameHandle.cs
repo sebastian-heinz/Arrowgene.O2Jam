@@ -19,6 +19,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteInt32(0);
             res.WriteInt32(0);
             client.Send(res.GetAllBytes(), PacketId.StartGameRes);
+            //Res_4011_0x0FAB = 4011, // 0x0FAB = 0x0055F630
         }
     }
 }

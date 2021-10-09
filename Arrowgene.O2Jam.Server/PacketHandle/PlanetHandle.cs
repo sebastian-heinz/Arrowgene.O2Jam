@@ -28,6 +28,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             }
 
             client.Send(res.GetAllBytes(), PacketId.PlanetRes);
+            //Res_1003_0x03EB = 1003, // 0x03EB = 0x00559FF0
         }
     }
 }

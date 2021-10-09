@@ -57,6 +57,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
 
             res.WriteByte(0);
             client.Send(res.GetAllBytes(), PacketId.MusicListRes);
+            //Res_4031_0x0FBF = 4031, // 0x0FBF = 0x005593B0
         }
     }
 }

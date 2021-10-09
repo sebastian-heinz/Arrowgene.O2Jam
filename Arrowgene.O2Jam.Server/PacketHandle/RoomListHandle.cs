@@ -17,6 +17,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             IBuffer res = new StreamBuffer();
             res.WriteInt32(0);
             client.Send(res.GetAllBytes(), PacketId.RoomListRes);
+            //Res_2003_0x07D3 = 2003, // 0x07D3 = 0x0055B710
 
             IBuffer res2 = new StreamBuffer();
             res.WriteInt32(2);
@@ -25,6 +26,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteInt32(0);
             res.WriteUInt16(0);
             client.Send(res2.GetAllBytes(), PacketId.UnkRes);
+            //Res_2026_0x07EA = 2026, // 0x07EA = 0x0055A9A0
         }
     }
 }

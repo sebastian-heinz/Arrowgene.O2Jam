@@ -99,6 +99,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             }
 
             client.Send(res.GetAllBytes(), PacketId.CharacterRes);
+            //Res_2001_0x07D1 = 2001, // 0x07D1 = 0x0055A350
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteByte(0);
             res.WriteByte(0);
             client.Send(res.GetAllBytes(), PacketId.GameCheck1Res);
+            //Res_4056_0x0FD8 = 4056, // 0x0FD8 = 0x00563D50
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteUInt32(1000);
             res.WriteUInt32(2000);
             client.Send(res.GetAllBytes(), PacketId.CashRes);
+            //Res_5029_0x13A5 = 5029, // 0x13A5 = 0x00563900
         }
     }
 }

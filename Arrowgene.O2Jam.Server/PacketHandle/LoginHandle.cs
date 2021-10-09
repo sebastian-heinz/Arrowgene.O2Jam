@@ -50,6 +50,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteCString("Test2");
 
             client.Send(res.GetAllBytes(), PacketId.LoginRes);
+            //Res_1001_0x03E9 = 1001, // 0x03E9 = 0x00559020 (0x00401000)
         }
     }
 }

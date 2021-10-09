@@ -23,6 +23,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteUInt16(songId);
             res.WriteUInt16(unknown);
             client.Send(res.GetAllBytes(), PacketId.RoomSongSelectRes);
+            //Res_4001_0x0FA1 = 4001, // 0x0FA1 = 0x0055F2D0
         }
     }
 }

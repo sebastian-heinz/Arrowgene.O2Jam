@@ -22,6 +22,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteByte(0);
             res.WriteByte(0);
             client.Send(res.GetAllBytes(), PacketId.RoomBackButtonRes);
+            //Res_3006_0x0BBE = 3006, // 0x0BBE = 0x0055D700
         }
     }
 }

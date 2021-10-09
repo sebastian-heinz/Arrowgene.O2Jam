@@ -24,20 +24,21 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
 
             Logger.Info($"un0:{un0} un1:{un1} time:{time} count:{count} un2:{un2}");
             
+            //InGame Loading
             IBuffer res = new StreamBuffer();
             res.WriteUInt32(un0); //Loading Orange = 1 , Green = 0
             res.WriteUInt32(un1);
-            res.WriteUInt32(time);//time
-            res.WriteUInt32(count);//count
+            res.WriteUInt32(time);
+            res.WriteUInt32(count);
             res.WriteUInt32(un2);
-
-
             client.Send(res.GetAllBytes(), PacketId.GameCheck2Res);
+            //Res_4049_0x0FD1 = 4049, // 0x0FD1 = 0x00563DB0
 
             //InGame Start
             IBuffer res2 = new StreamBuffer();
             res2.WriteByte(0);
             client.Send(res2.GetAllBytes(), PacketId.InGameStartRes);
+            //Res_4050_0x0FD2 = 4050, // 0x0FD2 = 0x00563FE0
 
 
           // if (un2 == 1)

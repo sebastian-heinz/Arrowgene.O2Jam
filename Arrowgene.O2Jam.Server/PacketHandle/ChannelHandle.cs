@@ -24,6 +24,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteUInt32(1); // Player rank
 
             client.Send(res.GetAllBytes(), PacketId.ChannelRes);
+            //Res_1005_0x03ED = 1005, // 0x03ED = 0x0055A110
         }
     }
 }
