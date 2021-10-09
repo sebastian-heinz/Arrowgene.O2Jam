@@ -21,6 +21,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             IBuffer res = new StreamBuffer();
             res.WriteByte(1);
             client.Send(res.GetAllBytes(), PacketId.LobbyChatRes);
+            //Res_2013_0x07DD = 2013, // 0x07DD = 0x0055BFA0
         }
     }
 }
