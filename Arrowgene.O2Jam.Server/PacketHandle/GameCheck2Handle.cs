@@ -35,13 +35,18 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             //Res_4049_0x0FD1 = 4049, // 0x0FD1 = 0x00563DB0
 
             //InGame Start
-            IBuffer res2 = new StreamBuffer();
-            res2.WriteByte(0);
-            client.Send(res2.GetAllBytes(), PacketId.InGameStartRes);
-            //Res_4050_0x0FD2 = 4050, // 0x0FD2 = 0x00563FE0
+            if (un2 == 1)
+            {
+                IBuffer res2 = new StreamBuffer();
+                res2.WriteByte(0);
+                res2.WriteByte(0);
+                res2.WriteUInt32(0);
+                client.Send(res2.GetAllBytes(), PacketId.InGameStartRes);
+                //Res_4050_0x0FD2 = 4050, // 0x0FD2 = 0x00563FE0
+           }
 
 
-          // if (un2 == 1)
+            // if (un2 == 1)
           // {
           //     IBuffer res1 = new StreamBuffer();
           //     res1.WriteBytes(new byte[20]);
