@@ -8,6 +8,7 @@ namespace Arrowgene.O2Jam
 {
     class Program
     {
+        private static readonly ILogger Logger = LogProvider.Logger<Logger>(typeof(Program));
         private static readonly object ConsoleLock = new();
         private static readonly Setting Setting = new();
 
@@ -29,7 +30,9 @@ namespace Arrowgene.O2Jam
             }
             else
             {
-                new Test();
+                Test test = new Test();
+                string output = test.decrypt(Test.TEST_1);
+                Logger.Info(output);
             }
          
             LogProvider.Stop();
