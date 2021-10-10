@@ -13,7 +13,7 @@ namespace Arrowgene.O2Jam
 
         static void Main(string[] args)
         {
-           // new Test();
+       
             
             LogProvider.Configure<ServerLogger>(Setting);
             LogProvider.OnLogWrite += LogProviderOnOnLogWrite;
@@ -27,7 +27,11 @@ namespace Arrowgene.O2Jam
                 netServer.Stop();
                 return;
             }
-
+            else
+            {
+                new Test();
+            }
+         
             LogProvider.Stop();
         }
 
