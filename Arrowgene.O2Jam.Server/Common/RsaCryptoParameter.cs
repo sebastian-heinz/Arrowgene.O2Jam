@@ -5,13 +5,19 @@ namespace Arrowgene.O2Jam.Server.Common
 {
     public class RsaCryptoParameter
     {
-        public RsaCryptoParameter(BigInteger p, BigInteger q, BigInteger e)
+        public RsaCryptoParameter(BigInteger p, BigInteger q, BigInteger e, BigInteger d)
         {
             P = p;
             Q = q;
             N = P * Q;
             Phi = (P - 1) * (Q - 1);
             E = e;
+            D = d;
+        }
+        
+        public RsaCryptoParameter(BigInteger p, BigInteger q, BigInteger e): this(p, q, BigInteger.Zero, BigInteger.Zero)
+        {
+
         }
 
         public RsaCryptoParameter(BigInteger p, BigInteger q) : this(p, q, BigInteger.Zero)
