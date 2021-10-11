@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Globalization;
+using System.Numerics;
 using System.Text;
 
 namespace Arrowgene.O2Jam.Server.Common
 {
     public class ClientStartupArgFactory
     {
-        private const double P3 = 67519.0;
-        private const double P2 = 68711.0;
-        private const bool Perf1 = true;
-
+        private RsaCryptoParameter _cryptoParam;
         private Encoding _encoding;
+
 
         public ClientStartupArgFactory()
         {
             _encoding = Encoding.UTF8;
+            _cryptoParam = new RsaCryptoParameter(251, 269);
+            _cryptoParam.E = 54391; // 20891
+            _cryptoParam.D = 68711;
         }
 
         public string Encrypt(string decrypted)
@@ -34,27 +36,48 @@ namespace Arrowgene.O2Jam.Server.Common
             for (int i = 0; i < decryptedLength; i += 2)
             {
                 byte[] bytesResult = new byte[4];
-                bytesResult[0] = decryptedBytes[encryptedIndex++];
                 bytesResult[1] = decryptedBytes[encryptedIndex++];
+                bytesResult[0] = decryptedBytes[encryptedIndex++];
                 int intResult = BitConverter.ToInt32(bytesResult);
-                float floatResult = (float) intResult;
-                if (floatResult < 0)
-                {
-                    return null;
-                }
 
-                double doubleResult = EncryptCycle(floatResult, P2, P3);
-                int intR = (int) doubleResult;
-                if (intR < 0)
-                {
-                    return null;
-                }
+                uint ret = (uint) _cryptoParam.Encrypt(intResult);
 
-                string hexResult = $"{intR:X6}";
+                string hexResult = $"{ret:X6}";
                 encrypted.Append(hexResult);
             }
 
             return encrypted.ToString();
+        }
+
+        public string Decrypt(string encrypted)
+        {
+            int encryptedLength = encrypted.Length;
+            if (encryptedLength % 6 != 0)
+            {
+                return null;
+            }
+
+            int numDecryptedCharPairs = encryptedLength / 6;
+            int decryptedLength = numDecryptedCharPairs * 2;
+            byte[] decrypted = new byte[decryptedLength];
+            int decryptedIndex = 0;
+            for (int i = 0; i < encryptedLength; i += 6)
+            {
+                string strVal = encrypted.Substring(i, 6);
+                int intVal = int.Parse(strVal, NumberStyles.AllowHexSpecifier);
+                if (intVal < 0)
+                {
+                    return null;
+                }
+
+                int intResult = (int) _cryptoParam.Decrypt(intVal);
+                byte[] bytesResult = BitConverter.GetBytes(intResult);
+                decrypted[decryptedIndex++] = bytesResult[1];
+                decrypted[decryptedIndex++] = bytesResult[0];
+            }
+
+            string decryptedString = _encoding.GetString(decrypted);
+            return decryptedString;
         }
 
         /// <summary>
@@ -62,8 +85,12 @@ namespace Arrowgene.O2Jam.Server.Common
         /// </summary>
         /// <param name="encrypted"></param>
         /// <returns></returns>
-        public string Decrypt(string encrypted)
+        public string Decrypt_Original(string encrypted)
         {
+            const double P3 = 67519.0; // n
+            const double P2 = 68711.0;
+            const bool Perf1 = true;
+
             int encryptedLength = encrypted.Length;
             if (encryptedLength % 6 != 0)
             {
@@ -127,19 +154,6 @@ namespace Arrowgene.O2Jam.Server.Common
 
             string decryptedString = _encoding.GetString(decrypted);
             return decryptedString;
-        }
-
-        private double EncryptCycle(float result, double p2, double p3)
-        {
-            int multiplier = 1;
-            uint uIntResult = (uint) result;
-            
-            float p1 = Fmod((ulong) (multiplier * uIntResult), p3);
-           
-            
-          //  var test = RequiredPower(uIntParam1, p3);
-
-            return 0;
         }
 
         /// <summary>
