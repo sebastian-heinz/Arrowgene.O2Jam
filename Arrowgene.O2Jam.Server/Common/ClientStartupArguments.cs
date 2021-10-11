@@ -10,48 +10,15 @@ namespace Arrowgene.O2Jam.Server.Common
     {
         private static readonly ILogger Logger = LogProvider.Logger<Logger>(typeof(ClientStartupArguments));
 
-        public const int NumArguments = 19;
+        private const int NumArguments = 19;
 
-        public static List<string> SplitArgs(string argument)
-        {
-            string[] args = argument.Split("|");
-            return new List<string>(args);
-        }
-
-        public static string JoinArgs(List<string> arguments)
-        {
-            return string.Join("|", arguments);
-        }
-
-        public static string[] ParseArguments(string arguments)
-        {
-            string[] result = new string[NumArguments];
-            int index = 0;
-            for (int i = 0; i < NumArguments; i++)
-            {
-                if (index + 2 > arguments.Length)
-                {
-                    // err
-                }
-
-                string argumentLengthStr = arguments.Substring(index, 2);
-                index += 2;
-                int argumentLength = int.Parse(argumentLengthStr, NumberStyles.Integer);
-                if (index + argumentLength > arguments.Length)
-                {
-                    // err
-                }
-
-                string argument = arguments.Substring(index, argumentLength);
-                result[i] = argument;
-                index += argumentLength;
-            }
-
-            return result;
-        }
+        private readonly RsaCryptoParameter _cryptoParam;
+        private readonly Encoding _encoding;
 
         public ClientStartupArguments()
         {
+            _encoding = Encoding.UTF8;
+            _cryptoParam = new RsaCryptoParameter(251, 269, 54391, 68711);
             P1 = new List<string>();
             P2 = 0;
             P3 = "";
@@ -72,7 +39,7 @@ namespace Arrowgene.O2Jam.Server.Common
             P18 = "";
         }
 
-        public ClientStartupArguments(string arguments)
+        public ClientStartupArguments(string arguments) : this()
         {
             string[] args = ParseArguments(arguments);
             P1 = SplitArgs(args[0]);
@@ -116,7 +83,64 @@ namespace Arrowgene.O2Jam.Server.Common
         public string P18 { get; set; }
         public string P19 { get; set; }
 
-        public override string ToString()
+
+        public string Encrypt(string decrypted)
+        {
+            int decryptedLength = decrypted.Length;
+            if (decryptedLength % 2 != 0)
+            {
+                // todo add a space ?
+                return null;
+            }
+
+            StringBuilder encrypted = new StringBuilder();
+            byte[] decryptedBytes = _encoding.GetBytes(decrypted);
+            for (int i = 0; i < decryptedLength; i += 2)
+            {
+                byte[] bytesResult = new byte[2];
+                bytesResult[1] = decryptedBytes[i];
+                bytesResult[0] = decryptedBytes[i + 1];
+                ushort intResult = BitConverter.ToUInt16(bytesResult);
+                uint ret = (uint) _cryptoParam.Encrypt(intResult);
+                string hexResult = $"{ret:X6}";
+                encrypted.Append(hexResult);
+            }
+
+            return encrypted.ToString();
+        }
+
+        public string Decrypt(string encrypted)
+        {
+            int encryptedLength = encrypted.Length;
+            if (encryptedLength % 6 != 0)
+            {
+                return null;
+            }
+
+            int numDecryptedCharPairs = encryptedLength / 6;
+            int decryptedLength = numDecryptedCharPairs * 2;
+            byte[] decrypted = new byte[decryptedLength];
+            int decryptedIndex = 0;
+            for (int i = 0; i < encryptedLength; i += 6)
+            {
+                string strVal = encrypted.Substring(i, 6);
+                int intVal = int.Parse(strVal, NumberStyles.AllowHexSpecifier);
+                if (intVal < 0)
+                {
+                    return null;
+                }
+
+                uint intResult = (uint) _cryptoParam.Decrypt(intVal);
+                byte[] bytesResult = BitConverter.GetBytes(intResult);
+                decrypted[decryptedIndex++] = bytesResult[1];
+                decrypted[decryptedIndex++] = bytesResult[0];
+            }
+
+            string decryptedString = _encoding.GetString(decrypted);
+            return decryptedString;
+        }
+
+        public string GetArgumentString()
         {
             StringBuilder sb = new StringBuilder();
             WritePrefix(sb, JoinArgs(P1));
@@ -141,11 +165,54 @@ namespace Arrowgene.O2Jam.Server.Common
             return sb.ToString();
         }
 
+        public string GetEncryptedArgumentString()
+        {
+            string argumentString = GetArgumentString();
+            return Encrypt(argumentString);
+        }
 
         private void WritePrefix(StringBuilder sb, string value)
         {
-            sb.Append(value.Length);
+            sb.Append($"{value.Length:00}");
             sb.Append(value);
+        }
+
+        private List<string> SplitArgs(string argument)
+        {
+            string[] args = argument.Split("|");
+            return new List<string>(args);
+        }
+
+        private string JoinArgs(List<string> arguments)
+        {
+            return string.Join("|", arguments);
+        }
+
+        private string[] ParseArguments(string arguments)
+        {
+            string[] result = new string[NumArguments];
+            int index = 0;
+            for (int i = 0; i < NumArguments; i++)
+            {
+                if (index + 2 > arguments.Length)
+                {
+                    // err
+                }
+
+                string argumentLengthStr = arguments.Substring(index, 2);
+                index += 2;
+                int argumentLength = int.Parse(argumentLengthStr, NumberStyles.Integer);
+                if (index + argumentLength > arguments.Length)
+                {
+                    // err
+                }
+
+                string argument = arguments.Substring(index, argumentLength);
+                result[i] = argument;
+                index += argumentLength;
+            }
+
+            return result;
         }
     }
 }
