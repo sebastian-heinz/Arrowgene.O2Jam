@@ -30,9 +30,9 @@ namespace Arrowgene.O2Jam
             }
             else
             {
-                Test test = new Test();
-                string output = test.decrypt(Test.TEST_1);
-                Logger.Info(output);
+             //   Test test = new Test();
+             //   string output = test.decrypt(Test.TEST_1);
+             //   Logger.Info(output);
             }
          
             LogProvider.Stop();
