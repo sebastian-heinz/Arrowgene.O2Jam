@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using Arrowgene.O2Jam.Server.Core;
-using Arrowgene.O2Jam.Server.Logging;
-using Arrowgene.O2Jam.Server.Packet;
-using Arrowgene.Logging;
 
 namespace Arrowgene.O2Jam.Server.Common
 {
@@ -33,7 +28,7 @@ namespace Arrowgene.O2Jam.Server.Common
 
             int numDecryptedCharPairs = decryptedLength / 2;
             int encryptedLength = numDecryptedCharPairs * 6;
-            byte[] encrypted = new byte[encryptedLength];
+            StringBuilder encrypted = new StringBuilder();
             byte[] decryptedBytes = _encoding.GetBytes(decrypted);
             int encryptedIndex = 0;
             for (int i = 0; i < decryptedLength; i += 2)
@@ -47,15 +42,19 @@ namespace Arrowgene.O2Jam.Server.Common
                 {
                     return null;
                 }
-                
-         
-                
-                
 
-                bool end = true;
+                double doubleResult = fun_585a80_rev(floatResult, P3, P2);
+                int intR = (int) doubleResult;
+                if (intR < 0)
+                {
+                    return null;
+                }
+
+                string hexResult = $"{intR:X6}";
+                encrypted.Append(hexResult);
             }
 
-            return "";
+            return encrypted.ToString();
         }
 
         /// <summary>
@@ -99,7 +98,7 @@ namespace Arrowgene.O2Jam.Server.Common
                 }
                 else
                 {
-                    string hexResult = $"{intResult:X}";
+                    string hexResult = $"{intResult:X4}";
                     byte[] bytesResult = Encoding.UTF8.GetBytes(hexResult);
 
                     char[] charResultA = new char[2];
@@ -130,40 +129,43 @@ namespace Arrowgene.O2Jam.Server.Common
             return decryptedString;
         }
 
+        private double fun_585a80_rev(float p1, double p2, double p3)
+        {
+            return 0;
+        }
+
         private float fun_585a80(double p1, double p2, double p3)
         {
-            bool bVar2 = false;
-            uint local_30 = (uint) (long) Math.Round(p1);
-            uint local_20 = local_30;
+            bool exit = false;
             int local_14 = 1;
-            uint local_40 = (uint) (long) Math.Round(p2);
-            uint local_10 = local_40;
-            float fVar3;
+            float result;
+            uint local_20 = (uint) (long) Math.Round(p1);
+            uint local_10 = (uint) (long) Math.Round(p2);
 
             while (true)
             {
-                if ((bVar2) || (local_20 == 1))
+                if (exit || local_20 == 1)
                 {
                     // LABEl
-                    fVar3 = (float) fun_5fa5c0((double) (ulong) (local_14 * local_20), p3);
-                    return (float) ((long) Math.Round(fVar3) & 0xFFFFFFFF);
+                    result = (float) Fmod((double) (ulong) (local_14 * local_20), p3);
+                    return (float) ((long) Math.Round(result) & 0xFFFFFFFF);
                 }
 
-                fVar3 = (float) fun_585dc0((double) (ulong) local_20, p3);
-                ulong uVar1 = (ulong) Math.Round(fVar3);
+                result = (float) RequiredPower(local_20, p3);
+                ulong uVar1 = (ulong) Math.Round(result);
                 uint local_58 = (uint) uVar1;
                 if (local_58 == 0)
                 {
                     return (float) -1.0;
                 }
 
-                fVar3 = (float) fun_5fa5c0((double) (ulong) local_10, (double) (uVar1 & 0xFFFFFFFF));
-                int local_78 = (int) (long) Math.Round(fVar3);
+                result = (float) Fmod((double) (ulong) local_10, (double) (uVar1 & 0xFFFFFFFF));
+                int local_78 = (int) (long) Math.Round(result);
                 local_10 = (uint) ((local_10 - local_78) / local_58);
-                double dVar4 = Math.Pow((double) (ulong) local_20, (double) ((long) Math.Round(fVar3) & 0xFFFFFFFF));
+                double dVar4 = Math.Pow((double) (ulong) local_20, (double) ((long) Math.Round(result) & 0xFFFFFFFF));
                 int local_98 = (int) (long) Math.Round(dVar4);
-                fVar3 = (float) fun_5fa5c0((double) (ulong) (uint) (local_98 * local_14), p3);
-                int local_b0 = (int) (long) Math.Round(fVar3);
+                result = (float) Fmod((double) (ulong) (uint) (local_98 * local_14), p3);
+                int local_b0 = (int) (long) Math.Round(result);
                 local_14 = local_b0;
                 if (local_10 == 0)
                 {
@@ -172,64 +174,60 @@ namespace Arrowgene.O2Jam.Server.Common
 
                 if (local_10 == 1)
                 {
-                    bVar2 = true;
+                    exit = true;
                 }
 
                 double uVar5 = p3;
                 dVar4 = Math.Pow((double) (long) local_20, (double) (uVar1 & 0xFFFFFFFF));
-                fVar3 = (float) fun_5fa5c0(dVar4, uVar5);
-                uint local_d0 = (uint) (long) Math.Round(fVar3);
+                result = (float) Fmod(dVar4, uVar5);
+                uint local_d0 = (uint) (long) Math.Round(result);
                 local_20 = local_d0;
             }
 
             local_20 = 1;
             // LABEl
-            fVar3 = (float) fun_5fa5c0((double) (ulong) (local_14 * local_20), p3);
-            return (float) ((long) Math.Round(fVar3) & 0xFFFFFFFF);
+            result = (float) Fmod((double) (ulong) (local_14 * local_20), p3);
+            return (float) ((long) Math.Round(result) & 0xFFFFFFFF);
         }
 
-        private float fun_5fa5c0(double p1, double p2)
+        private float Fmod(double p1, double p2)
         {
             return (float) (p1 % p2);
         }
-
-        private float fun_585dc0(double p1, double p2)
+        
+        /// <summary>
+        /// Calculates smallest exponent of x that exceeds min
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="min"></param>
+        /// <returns>smallest power of x that exceeds min</returns>
+        private int RequiredPower(uint x, double min)
         {
-            float fVar1;
-            if (p1 == 1.0)
+            if (x == 1)
             {
-                fVar1 = (float) p1;
+                return 1;
             }
-            else
+            if (x < 1)
             {
-                if ((ushort) ((ushort) (1.0 < p1 ? 1 : 0) << 8 | (ushort) (p1 == 1.0 ? 1 : 0) << 0xE) == 0)
-                {
-                    fVar1 = (float) -1.0;
-                }
-                else
-                {
-                    double c = 1.0;
-                    do
-                    {
-                        double d = Math.Pow(p1, c);
-                        if (p2 == d)
-                        {
-                            return (float) 0;
-                        }
-
-                        if (p2 < d)
-                        {
-                            return (float) c;
-                        }
-
-                        c = c + 1.0;
-                    } while (c <= 4096.0);
-
-                    fVar1 = (float) -1.0;
-                }
+                return -1;
             }
+            int count = 1; 
+            do
+            {
+                double result = Math.Pow(x, count);
+                if (min == result)
+                {
+                    return 0;
+                }
 
-            return fVar1;
+                if (min < result)
+                {
+                    return count;
+                }
+
+                count++;
+            } while (count <= 4096);
+            return -1;
         }
     }
 }

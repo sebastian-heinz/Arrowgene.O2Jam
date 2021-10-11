@@ -19,20 +19,20 @@ namespace Arrowgene.O2Jam.Test.Common
             _output = output;
         }
 
+       [Fact]
+       public void TestDecryption()
+       {
+           ClientStartupArgFactory csaf = new ClientStartupArgFactory();
+           string decrypted = csaf.Decrypt(_encrypted_argument_1);
+           Assert.Equal(_decrypted_argument_1, decrypted);
+       }
+        
      //   [Fact]
-     //   public void TestDecryption()
+     //   public void TestEncryption()
      //   {
      //       ClientStartupArgFactory csaf = new ClientStartupArgFactory();
-     //       string decrypted = csaf.Decrypt(_encrypted_argument_1);
-     //       Assert.Equal(_decrypted_argument_1, decrypted);
+     //       string encrypted = csaf.Encrypt(_decrypted_argument_1);
+     //       Assert.Equal(_encrypted_argument_1, encrypted);
      //   }
-        
-        [Fact]
-        public void TestEncryption()
-        {
-            ClientStartupArgFactory csaf = new ClientStartupArgFactory();
-            string encrypted = csaf.Encrypt(_decrypted_argument_1);
-            Assert.Equal(_encrypted_argument_1, encrypted);
-        }
     }
 }
