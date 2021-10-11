@@ -11,62 +11,124 @@ namespace Arrowgene.O2Jam.Server.Common
 {
     public class ClientStartupArgFactory
     {
-   
+        private const double P3 = 67519.0;
+        private const double P2 = 68711.0;
+        private const bool Perf1 = true;
+
+        private Encoding _encoding;
 
         public ClientStartupArgFactory()
         {
-            
+            _encoding = Encoding.UTF8;
         }
 
-        public string decrypt(string input)
+        public string Encrypt(string decrypted)
         {
-            //00C702    00E850 00DF8E 00E85 000CA 9300F1A60096B800043E00811000717E0096B80099FC0013FD00CB8300A40C006E4200B96E00B705003F1600BF7500ADFE001B2000C4C100C5F30099F4005BBD00384F00F70800EEB500B9AF00C19100D50B00EEB50086CF00D83B00EBCF00639B00E83600DF6F005FB300192000583200637E001ABB00512000717E001A6800774100A50700A40C0000D800ED6E00C534006F880078BF006C3300ED0200AF02008D8C006EF6003C0900191000ED6E002C47005DC200192000FB5800A40C00CB8300DD38002C4700316A00F70800774100B11800A876006F8800280E00854E00F27600C2AA00AE6F00781200170E006351001B1700A40C0053AF0104BF0087CB004E1700923E00B6A000D83F00FAC700ADFE007205000B8200746300E32E0014D9004DEA00531C00DAD600E812000BB30002CC00CC050028B40097B600012400980A00CEC4004D5F00C2AA00AE6F000029001D99002970 003F16 00BF75 00EFDC
-            //32:39-2:9
-            int len = input.Length;
-            int pairs = len / 6;
-            double p3 = 67519.0; // 00 00 00 00 F0 7B F0 40 // param_3
-            double p2 = 68711.0; // 00 00 00 00 70 C6 F0 40 // param_2
-            List<byte> ress = new List<byte>();
-
-            for (int i = 0; i < len; i += 6)
+            int decryptedLength = decrypted.Length;
+            if (decryptedLength % 2 != 0)
             {
-                String strVal = input.Substring(i, 6);
-                int local_10 = Int32.Parse(strVal, NumberStyles.AllowHexSpecifier);
-                if (local_10 < 0)
-                {
-                }
-
-                float p1 = (float) local_10;
-                float fVar1 = fun_585a80(p1, p2, p3);
-                if (fVar1 < 0)
-                {
-                }
-
-                int v = fun_5f7260(fVar1);
-
-                byte[] bb = BitConverter.GetBytes(v);
-                ress.Add(bb[1]);
-                ress.Add(bb[0]);
-
-                //   string ss = BitConverter.ToString(bb);
-                //   int ii = Int32.Parse(strVal, NumberStyles.AllowHexSpecifier);
-                //   float ff = (float) ii;
-                //   byte[] bb1 = BitConverter.GetBytes(ff);
+                // todo add a space ?
+                return null;
             }
 
-            byte[] sar = ress.ToArray();
-            string daStringz = Encoding.UTF8.GetString(sar);
+            int numDecryptedCharPairs = decryptedLength / 2;
+            int encryptedLength = numDecryptedCharPairs * 6;
+            byte[] encrypted = new byte[encryptedLength];
+            byte[] decryptedBytes = _encoding.GetBytes(decrypted);
+            int encryptedIndex = 0;
+            for (int i = 0; i < decryptedLength; i += 2)
+            {
+                byte[] bytesResult = new byte[4];
+                bytesResult[0] = decryptedBytes[encryptedIndex++];
+                bytesResult[1] = decryptedBytes[encryptedIndex++];
+                int intResult = BitConverter.ToInt32(bytesResult);
+                float floatResult = (float) intResult;
+                if (floatResult < 0)
+                {
+                    return null;
+                }
+                
+         
+                
+                
 
+                bool end = true;
+            }
 
-            return daStringz;
+            return "";
         }
 
-
-        private int fun_5f7260(float p1)
+        /// <summary>
+        /// fun_0x585ed0
+        /// </summary>
+        /// <param name="encrypted"></param>
+        /// <returns></returns>
+        public string Decrypt(string encrypted)
         {
-            return (int) p1;
-        }
+            int encryptedLength = encrypted.Length;
+            if (encryptedLength % 6 != 0)
+            {
+                return null;
+            }
 
+            int numDecryptedCharPairs = encryptedLength / 6;
+            int decryptedLength = numDecryptedCharPairs * 2;
+            byte[] decrypted = new byte[decryptedLength];
+            int decryptedIndex = 0;
+            for (int i = 0; i < encryptedLength; i += 6)
+            {
+                string strVal = encrypted.Substring(i, 6);
+                int intVal = int.Parse(strVal, NumberStyles.AllowHexSpecifier); // fun_5859A0
+                if (intVal < 0)
+                {
+                    return null;
+                }
+
+                float floatResult = fun_585a80((double) intVal, P2, P3);
+                if (floatResult < 0)
+                {
+                    return null;
+                }
+
+                int intResult = (int) floatResult; // fun_5f7260
+                if (Perf1)
+                {
+                    byte[] bytesResult = BitConverter.GetBytes(intResult);
+                    decrypted[decryptedIndex++] = bytesResult[1];
+                    decrypted[decryptedIndex++] = bytesResult[0];
+                }
+                else
+                {
+                    string hexResult = $"{intResult:X}";
+                    byte[] bytesResult = Encoding.UTF8.GetBytes(hexResult);
+
+                    char[] charResultA = new char[2];
+                    charResultA[0] = (char) bytesResult[0];
+                    charResultA[1] = (char) bytesResult[1];
+                    int intResultA = Int32.Parse(charResultA, NumberStyles.AllowHexSpecifier); // fun_5859A0
+                    if (intResultA < 0)
+                    {
+                        return null;
+                    }
+
+                    decrypted[decryptedIndex++] = (byte) intResultA;
+
+                    char[] charResultB = new char[2];
+                    charResultB[0] = (char) bytesResult[2];
+                    charResultB[1] = (char) bytesResult[3];
+                    int intResultB = Int32.Parse(charResultB, NumberStyles.AllowHexSpecifier); // fun_5859A0
+                    if (intResultB < 0)
+                    {
+                        return null;
+                    }
+
+                    decrypted[decryptedIndex++] = (byte) intResultB;
+                }
+            }
+
+            string decryptedString = _encoding.GetString(decrypted);
+            return decryptedString;
+        }
 
         private float fun_585a80(double p1, double p2, double p3)
         {
