@@ -27,12 +27,12 @@ namespace Arrowgene.O2Jam.Test.Common
            Assert.Equal(_decrypted_argument_1, decrypted);
        }
         
-     //   [Fact]
-     //   public void TestEncryption()
-     //   {
-     //       ClientStartupArgFactory csaf = new ClientStartupArgFactory();
-     //       string encrypted = csaf.Encrypt(_decrypted_argument_1);
-     //       Assert.Equal(_encrypted_argument_1, encrypted);
-     //   }
+      [Fact]
+      public void TestEncryption()
+      {
+          ClientStartupArgFactory csaf = new ClientStartupArgFactory();
+          string encrypted = csaf.Encrypt(_decrypted_argument_1);
+          Assert.Equal(_encrypted_argument_1, encrypted);
+      }
     }
 }
