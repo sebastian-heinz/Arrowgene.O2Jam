@@ -8,13 +8,12 @@ namespace Arrowgene.O2Jam
 {
     class Program
     {
+        private static readonly ILogger Logger = LogProvider.Logger<Logger>(typeof(Program));
         private static readonly object ConsoleLock = new();
         private static readonly Setting Setting = new();
 
         static void Main(string[] args)
         {
-           // new Test();
-            
             LogProvider.Configure<ServerLogger>(Setting);
             LogProvider.OnLogWrite += LogProviderOnOnLogWrite;
             LogProvider.Start();

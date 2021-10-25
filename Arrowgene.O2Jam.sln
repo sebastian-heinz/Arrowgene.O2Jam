@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arrowgene.O2Jam", "Arrowgen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arrowgene.O2Jam.Server", "Arrowgene.O2Jam.Server\Arrowgene.O2Jam.Server.csproj", "{372926A6-D488-408F-B944-3DC1EFB59F60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arrowgene.O2Jam.Test", "Arrowgene.O2Jam.Test\Arrowgene.O2Jam.Test.csproj", "{9DFB0A03-3572-46FB-89D3-80386867518B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{372926A6-D488-408F-B944-3DC1EFB59F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{372926A6-D488-408F-B944-3DC1EFB59F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{372926A6-D488-408F-B944-3DC1EFB59F60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFB0A03-3572-46FB-89D3-80386867518B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFB0A03-3572-46FB-89D3-80386867518B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFB0A03-3572-46FB-89D3-80386867518B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFB0A03-3572-46FB-89D3-80386867518B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
