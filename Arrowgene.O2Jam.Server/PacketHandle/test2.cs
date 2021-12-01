@@ -1,3 +1,4 @@
+using System;
 using Arrowgene.Buffers;
 using Arrowgene.Logging;
 using Arrowgene.O2Jam.Server.Core;
@@ -6,11 +7,11 @@ using Arrowgene.O2Jam.Server.Packet;
 
 namespace Arrowgene.O2Jam.Server.PacketHandle
 {
-    public class RoomSongSelectButton1 : PacketHandler
+    public class test2 : PacketHandler
     {
-        private static readonly ServerLogger Logger = LogProvider.Logger<ServerLogger>(typeof(RoomSongSelectButton1));
+        private static readonly ServerLogger Logger = LogProvider.Logger<ServerLogger>(typeof(test2));
 
-        public override PacketId Id => PacketId.RoomSongSelectButton1Req;
+        public override PacketId Id => PacketId.test2Req;
 
         public override void Handle(Client client, NetPacket packet)
         {
@@ -19,8 +20,8 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             res.WriteByte(0);
             res.WriteByte(0);
             res.WriteByte(0);
-            client.Send(res.GetAllBytes(), PacketId.RoomSongSelectButton1Res);
-            //Res_2031_0x07EF = 2031, // 0x07EF = 0x0055B590
+
+            client.Send(res.GetAllBytes(), PacketId.test2Res);
         }
     }
 }

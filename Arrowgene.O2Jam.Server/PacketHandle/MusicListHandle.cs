@@ -14,7 +14,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
     {
         private static readonly ServerLogger Logger = LogProvider.Logger<ServerLogger>(typeof(MusicListHandle));
 
-        private const ushort MaxSongs = 510;
+        private const ushort MaxSongs = 887;
 
         public override PacketId Id => PacketId.MusicListReq;
 

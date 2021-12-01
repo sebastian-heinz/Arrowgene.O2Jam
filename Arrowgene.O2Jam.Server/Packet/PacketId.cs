@@ -72,7 +72,7 @@
 
 
         // Reference
-        
+
         //Res_1001_0x03E9 = 1001, // 0x03E9 = 0x00559020 (0x00401000)
         //Res_1003_0x03EB = 1003, // 0x03EB = 0x00559FF0
         //Res_1005_0x03ED = 1005, // 0x03ED = 0x0055A110
@@ -157,6 +157,21 @@
         Res_5035_0x13AB = 5035, // 0x13AB = 0x00563A20
         Res_5037_0x13AD = 5037, // 0x13AD = 0x00563A60
         Res_5039_0x13AF = 5039, // 0x13AF = 0x00563B20
+
+
+        testReq = 5015,
+        testRes = 5016,
+        test1Req = 5006,
+        test1Res = 5007,
+
+        test2Req = 5000,
+        test2Res = 5001,
+
+        test3Req = 5025,
+        test3Res = 5026,
+
+
+    
 
     }
 }

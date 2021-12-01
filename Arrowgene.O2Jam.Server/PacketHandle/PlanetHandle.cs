@@ -21,7 +21,7 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             {
                 res.WriteUInt16(0); // Planet No (0=1-10, 1=31-40, 2=61-70, 3=91-99+90)
                 res.WriteUInt16((ushort) i); // Channel No
-                res.WriteUInt32(0);
+                res.WriteUInt32(1);
                 res.WriteUInt32(0); // % full 0-100
                 bool isOpen = true;
                 res.WriteByte(isOpen ? (byte) 1 : (byte) 0); // 0 = closed | 1 = open

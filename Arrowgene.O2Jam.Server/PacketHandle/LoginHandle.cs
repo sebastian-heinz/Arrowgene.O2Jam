@@ -33,21 +33,42 @@ namespace Arrowgene.O2Jam.Server.PacketHandle
             Logger.Info($"b:{b} c:{c} d:{d} e:{e}");
 
             IBuffer res = new StreamBuffer();
-            res.WriteInt32(0);
-            res.WriteInt32(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
+
+            res.WriteByte(32);//1=pc room 32=자유이용권  //Ticket to use all the songs.
+            res.WriteByte(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
             DateTime now = DateTime.Now;
-            string nowStr = now.ToString("yyyy-dd-MM hh:mm:ss");
+            string nowStr = now.ToString("yyyy-dd-MM hh:mm:ss"); //The period of use of all the songs.
             res.WriteCString(nowStr);
-            res.WriteInt32(0);
-            ushort value = 0;
+
+            res.WriteByte(255);
+            res.WriteByte(255);
+            res.WriteByte(255);
+            res.WriteByte(255);
+
+            ushort value = 0;//O2스타터 뮤직세트
+
             res.WriteUInt16(value);
             if (value != 0)
             {
                 res.WriteCString("Test");
             }
 
-            res.WriteInt32(0);
+            res.WriteByte(1);//무한 반지
+            res.WriteByte(0);
+            res.WriteByte(0);
+            res.WriteByte(0);
             res.WriteCString("Test2");
+            
+            res.WriteByte(255);
+            res.WriteByte(255);
+            res.WriteByte(255);
+            res.WriteByte(255);
 
             client.Send(res.GetAllBytes(), PacketId.LoginRes);
             //Res_1001_0x03E9 = 1001, // 0x03E9 = 0x00559020 (0x00401000)

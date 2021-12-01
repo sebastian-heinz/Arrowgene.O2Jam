@@ -27,7 +27,7 @@ namespace Arrowgene.O2Jam.Server.Core
             _consumer.AddHandler(new CreateRoomHandle());
             _consumer.AddHandler(new RoomSongSelectHandle());
             _consumer.AddHandler(new RoomColorSelectHandle());
-            _consumer.AddHandler(new RoomUnknown1Handle());
+            _consumer.AddHandler(new RoomApplySkill());
             _consumer.AddHandler(new RoomUnknown2Handle());
             _consumer.AddHandler(new StartGameHandle());
             _consumer.AddHandler(new GameCheck1Handle());
@@ -46,6 +46,11 @@ namespace Arrowgene.O2Jam.Server.Core
             _consumer.AddHandler(new InGameRanking());
             _consumer.AddHandler(new Resalt());
             _consumer.AddHandler(new LobbyChat());
+
+            _consumer.AddHandler(new test());
+            _consumer.AddHandler(new test1());
+            _consumer.AddHandler(new test2());
+            _consumer.AddHandler(new test3());
 
             _server = new AsyncEventServer(
                 IPAddress.Any,
